@@ -1,11 +1,22 @@
 <div *ngIf="course">
     <button (click)="goBack()">go back</button>
-    <h2>{{course.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{course.id}}</div>
-    <div>
-      <label>name:
-        <input [(ngModel)]="course.name" placeholder="name"/>
-      </label>
-    </div>
+    <h2>{{course.subject | uppercase}} Details</h2>
+    <div><span>catalog_nbr: </span>{{course.catalog_nbr}}</div>
+    <div><span>subject: </span>{{course.subject}}</div>
+    <div><span>className: </span>{{course.className}}</div>
+    <div><span>course_info: </span></div>
+    <div><span>-class_nbr: </span>{{course.course_info[0].class_nbr}}</div>
+    <div><span>-start_time: </span>{{course.course_info[0].start_time}}</div>
+    <div><span>-descrlong: </span>{{course.course_info[0].descrlong}}</div>
+    <div><span>-end_time: </span>{{course.course_info[0].end_time}}</div>
+    <div><span>-campus: </span>{{course.course_info[0].campus}}</div>
+    <div><span>-facility_ID: </span>{{course.course_info[0].facility_ID}}</div>
+    <div><span>-days: </span>{{course.course_info[0].days}}</div>
+    <div><span>-instructors: </span>{{course.course_info[0].instructors}}</div>
+    <div><span>-class_section: </span>{{course.course_info[0].class_section}}</div>
+    <div><span>-ssr_component: </span>{{course.course_info[0].ssr_component}}</div>
+    <div><span>-enrl_stat: </span>{{course.course_info[0].enrl_stat}}</div>
+    <div><span>-descr: </span>{{course.course_info[0].descr}}</div>
+    <div><span>catalog_description: </span>{{course.catalog_description}}</div>
   
   </div>

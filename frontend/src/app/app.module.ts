@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { CourseSearchComponent } from './course-search/course-search.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     CoursesComponent,
     CourseDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    CourseSearchComponent
   ],
   imports: [
     BrowserModule,
