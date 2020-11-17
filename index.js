@@ -130,7 +130,7 @@ router.get('/', (req, res) => {
 
   else if(Object.keys(queryParameter).length==2){
     for(course of courses){
-      if(course.subject.toLowerCase().includes(queryParameter.subject.toLowerCase())&& course.catalog_nbr.toLowerCase().includes(queryParameter.catalog_nbr.toLowerCase())){
+      if(course.subject.toLowerCase().includes(queryParameter.subject.toLowerCase())&& course.catalog_nbr.toString().toLowerCase().includes(queryParameter.catalog_nbr.toLowerCase())){
         results.push(course);
       }
     }
@@ -139,7 +139,7 @@ router.get('/', (req, res) => {
 
   else if(Object.keys(queryParameter).length==3){
     for(course of courses){
-      if(course.subject.toLowerCase().includes(queryParameter.subject.toLowerCase()) && course.catalog_nbr.toLowerCase().includes(queryParameter.catalog_nbr.toLowerCase()) && course.course_info[0].ssr_component.toLowerCase().includes(queryParameter.ssr_component.toLowerCase())){
+      if(course.subject.toLowerCase().includes(queryParameter.subject.toLowerCase()) && course.catalog_nbr.toString().toLowerCase().includes(queryParameter.catalog_nbr.toLowerCase()) && course.course_info[0].ssr_component.toLowerCase().includes(queryParameter.ssr_component.toLowerCase())){
         results.push(course);
       }
     }

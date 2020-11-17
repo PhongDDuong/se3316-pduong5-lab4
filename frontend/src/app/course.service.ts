@@ -55,11 +55,13 @@ export class CourseService {
   }
 
   searchCourses(term: string): Observable<Course[]> {
+    var input = term.split(",");
+    console.log(input);
     if (!term.trim()) {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Course[]>(`${this.coursesUrl}/?subject=${term}`).pipe(
+    return this.http.get<Course[]>(`${this.coursesUrl}/?subject=${input[0]}&catalog_nbr=${input[1]}&ssr_component=${input[2]}`).pipe(
       tap(x => x.length ?
          this.log(`found courses matching "${term}"`) :
          this.log(`no courses matching "${term}"`)),
