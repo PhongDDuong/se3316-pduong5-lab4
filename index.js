@@ -11,6 +11,11 @@ var store = new Storage('schedule');
 
 const port = process.env.Port || 3000;//port number
 
+router.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //makes courses with json file
 var newData = JSON.stringify(data)
@@ -107,7 +112,51 @@ app.delete('/api/schedule/', function (req, res) {
 
 //get all courses
 router.get('/', (req, res) => {
-  res.send(courses);
+  var queryParameter = req.query;
+  var results = [];
+
+  //used in get courses when given paramters in a query
+  if(Object.keys(queryParameter).length==0){
+    res.send(courses);
+  }
+  else if(Object.keys(queryParameter).length==1){
+    for(course of courses){
+      if(course.subject.toLowerCase().includes(queryParameter.subject.toLowerCase())){
+        results.push(course);
+      }
+    }
+    res.send(results);
+  }
+
+  else if(Object.keys(queryParameter).length==2){
+    for(course of courses){
+      if(course.subject.toLowerCase().includes(queryParameter.subject.toLowerCase())&& course.catalog_nbr.toLowerCase().includes(queryParameter.catalog_nbr.toLowerCase())){
+        results.push(course);
+      }
+    }
+    res.send(results);
+  }
+
+  else if(Object.keys(queryParameter).length==3){
+    for(course of courses){
+      if(course.subject.toLowerCase().includes(queryParameter.subject.toLowerCase()) && course.catalog_nbr.toLowerCase().includes(queryParameter.catalog_nbr.toLowerCase()) && course.course_info[0].ssr_component.toLowerCase().includes(queryParameter.ssr_component.toLowerCase())){
+        results.push(course);
+      }
+    }
+    res.send(results);
+  }
+
+});
+
+
+//get one course using id
+router.get('/:id', function (req, res) {
+
+  const course = courses.find(c => c.catalog_nbr.toString() === req.params.id);
+  if(!course) return res.status(404).send('Course not found');
+  
+  //courses.filter(course => course.subject.indexOf(req.params.id) !== -1);
+  res.send(course);
 });
 
 
@@ -156,16 +205,6 @@ router.post('/', function (req, res) {
   res.send(course);
 })
 
-
-//get one course using id
-router.get('/:id', function (req, res) {
-
-  const course = courses.find(c => c.id === parseInt(req.params.id));
-  if(!course) return res.status(404).send('Course not found');
-  
-  //courses.filter(course => course.subject.indexOf(req.params.id) !== -1);
-  res.send(course);
-});
 
 //put method using id
 router.put('/:id', function (req, res) {
