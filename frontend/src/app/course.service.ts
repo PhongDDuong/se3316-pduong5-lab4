@@ -13,6 +13,11 @@ export class CourseService {
 
   private coursesUrl = 'http://localhost:3000/api/courses';
 
+  /*getCourses(): Observable<Course[]> {
+    console.log(COURSES);
+    return of(COURSES);
+  }*/
+
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.coursesUrl)
   }

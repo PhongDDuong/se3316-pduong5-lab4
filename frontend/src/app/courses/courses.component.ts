@@ -17,7 +17,11 @@ export class CoursesComponent implements OnInit {
 
   getCourses(): void {
     this.courseService.getCourses()
-        .subscribe(courses => this.courses = courses);
+        .subscribe(courses => {
+          console.log(courses)
+          this.courses = courses;
+        })
+        
   }
 
   ngOnInit() {
