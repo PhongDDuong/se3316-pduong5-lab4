@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoursesComponent } from './courses/courses.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.component';
 
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'detail/:catalog_nbr', component: CourseDetailComponent },
+  { path: 'schedule/:name', component: ScheduleDetailComponent },
 ];
 
 @NgModule({

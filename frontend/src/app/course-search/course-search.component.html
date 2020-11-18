@@ -5,9 +5,11 @@
     
     <ul class="courses">
       <li *ngFor="let course of courses$ | async" >
+        <button class="right" (click)="addCourse(course.subject,course.catalog_nbr)">Add Course</button>
         <a routerLink="/detail/{{course.catalog_nbr}}">
           {{course.subject}}: {{course.catalog_nbr}} {{course.course_info[0].ssr_component}}
         </a>
+
       </li>
     </ul>
 

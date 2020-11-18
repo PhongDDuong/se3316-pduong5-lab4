@@ -22,8 +22,11 @@ export class CourseSearchComponent implements OnInit {
 
   // Push a search term into the observable stream.
   search(term: string): void {
-    console.log(term);
     this.searchTerms.next(term);
+  }
+
+  addCourse(subject: string,catalog_nbr: string): void {
+    console.log(subject,catalog_nbr);
   }
 
   ngOnInit(): void {

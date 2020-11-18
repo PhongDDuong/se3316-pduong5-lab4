@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from './course';
+import { Schedule } from './schedule';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -12,6 +13,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class CourseService {
 
   private coursesUrl = 'http://localhost:3000/api/courses';
+  private scheduleUrl = 'http://localhost:3000/api/schedule';
 
 
   httpOptions = {
@@ -36,9 +38,26 @@ export class CourseService {
       return of(result as T);
     };
   }
+
+  getSchedules(): Observable<[]> {
+    this.messageService.add('CourseService: fetched schedules');
+    return this.http.get<[]>(this.scheduleUrl)
+    .pipe(
+      tap(_ => this.log('fetched courses')),
+      catchError(this.handleError<[]>('getCourses', []))
+    );
+  }
+
+  getSchedule(name: string): Observable<Schedule> {
+    const url = `${this.scheduleUrl}/${name}`;
+    return this.http.get<Schedule>(url).pipe(
+      tap(_ => this.log(`fetched schedule=${name}`)),
+      catchError(this.handleError<Schedule>(`getSchedule id=${name}`))
+    );
+  }
   
   getCourses(): Observable<Course[]> {
-    this.messageService.add('HeroService: fetched courses');
+    this.messageService.add('CourseService: fetched courses');
     return this.http.get<Course[]>(this.coursesUrl)
     .pipe(
       tap(_ => this.log('fetched courses')),
@@ -50,23 +69,28 @@ export class CourseService {
     const url = `${this.coursesUrl}/${catalog_nbr}`;
     return this.http.get<Course>(url).pipe(
       tap(_ => this.log(`fetched catalog_nbr=${catalog_nbr}`)),
-      catchError(this.handleError<Course>(`getHero id=${catalog_nbr}`))
+      catchError(this.handleError<Course>(`getCourse id=${catalog_nbr}`))
     );
   }
 
   searchCourses(term: string): Observable<Course[]> {
-    var input = term.split(",");
-    console.log(input);
-    if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
+    if(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|.<>\/?~]/.test(term)){
+      alert("invalid characters used");
     }
-    return this.http.get<Course[]>(`${this.coursesUrl}/?subject=${input[0]}&catalog_nbr=${input[1]}&ssr_component=${input[2]}`).pipe(
-      tap(x => x.length ?
-         this.log(`found courses matching "${term}"`) :
-         this.log(`no courses matching "${term}"`)),
-      catchError(this.handleError<Course[]>('searchCourses', []))
-    );
+    else{
+      var input = term.split(",");
+
+      if (!term.trim()) {
+        // if not search term, return empty hero array.
+        return of([]);
+      }
+      return this.http.get<Course[]>(`${this.coursesUrl}/?subject=${input[0]}&catalog_nbr=${input[1]}&ssr_component=${input[2]}`).pipe(
+        tap(x => x.length ?
+          this.log(`found courses matching "${term}"`) :
+          this.log(`no courses matching "${term}"`)),
+        catchError(this.handleError<Course[]>('searchCourses', []))
+      );
+    }
   }
 
   private log(message: string) {

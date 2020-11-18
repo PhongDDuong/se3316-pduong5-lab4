@@ -12,8 +12,18 @@ import { MessageService } from '../message.service';
 export class CoursesComponent implements OnInit {
 
   courses: Course[];
+  schedules: [];
 
   constructor(private courseService: CourseService, private messageService: MessageService) {}
+
+  getSchedule(): void {
+    this.courseService.getSchedules()
+        .subscribe(schedules => {
+          console.log(schedules)
+          this.schedules = schedules;
+        })
+        
+  }
 
   getCourses(): void {
     this.courseService.getCourses()
@@ -26,6 +36,8 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     this.getCourses();
+    this.getSchedule();
+    console.log(this.schedules);
   }
 
 }

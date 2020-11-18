@@ -1,0 +1,7 @@
+<div *ngIf="schedule">
+    <button (click)="goBack()">go back</button>
+    <h2>{{schedule.schedule| uppercase}} Courses</h2>
+    <div><span>subject: </span>{{schedule.subject}}</div>
+    <div><span>catalog_nbr: </span>{{schedule.catalog_nbr}}</div>
+    <app-course-search></app-course-search>
+  </div>

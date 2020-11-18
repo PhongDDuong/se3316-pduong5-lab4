@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../course';
+import { Schedule } from '../schedule';
 import { CourseService } from '../course.service';
 
 @Component({
@@ -8,16 +9,16 @@ import { CourseService } from '../course.service';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
-  courses: Course[] = [];
+  schedules: Schedule[] = [];
 
   constructor(private courseService: CourseService) { }
 
   ngOnInit() {
-    this.getCourses();
+    this.getSchedules();
   }
 
-  getCourses(): void {
-    this.courseService.getCourses()
-      .subscribe(courses => this.courses = courses.slice(1, 5));
+  getSchedules(): void {
+    this.courseService.getSchedules()
+      .subscribe(schedules => this.schedules = schedules);
   }
 }
