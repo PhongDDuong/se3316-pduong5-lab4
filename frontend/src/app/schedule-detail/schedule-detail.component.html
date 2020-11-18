@@ -3,7 +3,12 @@
     <button (click)="goBack()">go back</button>
     <button (click)="deleteSchedule()">delete schedule</button>
     <h2>{{schedule.schedule| uppercase}} Courses</h2>
-    <div><span>subject: </span>{{schedule.subject}}</div>
-    <div><span>catalog_nbr: </span>{{schedule.catalog_nbr}}</div>
+    <ul class="courses">
+      <li *ngFor="let course of matchingCourses">
+          <a routerLink="/detail/{{course.catalog_nbr}}">
+            <span class="badge">{{course.subject}} | {{course.catalog_nbr}} </span>Time: {{course.course_info[0].start_time}}-{{course.course_info[0].end_time}} | Days: {{course.course_info[0].days}}
+          </a>
+      </li>
+  </ul>
     <app-course-search></app-course-search>
   </div>
