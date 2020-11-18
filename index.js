@@ -58,19 +58,6 @@ app.get('/api/schedule/:id', (req, res) => {
 });
 
 //add course to schedule
-app.post('/api/schedule/create/:id', function (req, res) {
-  
-  const schedule = {
-    schedule: req.params.id,
-    subject: " ",
-    catalog_nbr: " ",
-  }
-  //courses.push(course);
-  store.put(schedule.schedule,schedule);
-  res.send(schedule);
-})
-
-//add course to schedule
 app.post('/api/schedule/create', function (req, res) {
   const { error } = validateSchedule(req.body); //result.error
   if(error) return res.status(400).send(result.error.details[0].message);
@@ -80,9 +67,18 @@ app.post('/api/schedule/create', function (req, res) {
     subject: req.body.subject,
     catalog_nbr: req.body.catalog_nbr,
   }
-  //courses.push(course);
-  store.put(schedule.schedule,schedule);
-  res.send(schedule);
+  var existing = false;
+
+  for(schedule in store.store) {
+    if(req.body.schedule == schedule){
+      existing = true;
+    }
+  }
+
+  if(!existing){
+    store.put(schedule.schedule,schedule);
+    res.send(schedule);
+  }
 })
 
 //add course to schedule

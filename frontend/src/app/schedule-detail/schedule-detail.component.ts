@@ -48,7 +48,6 @@ export class ScheduleDetailComponent implements OnInit {
   getCourses(): void {
     this.courseService.getCourses()
         .subscribe(courses => {
-          console.log(courses)
           this.courses = courses;
           this.getScheduleCourses();
         })
@@ -58,7 +57,6 @@ export class ScheduleDetailComponent implements OnInit {
     //console.log(this.courses[0].catalog_nbr);
     var catnum = this.schedule.catalog_nbr.split(",");
     var subjects = this.schedule.subject.split(",");
-    console.log(catnum,subjects)
     for (let i = 0; i < catnum.length; i++) {
       for(var course of this.courses){
         if(course.catalog_nbr.toString()==catnum[i] && course.subject==subjects[i]){
@@ -66,7 +64,6 @@ export class ScheduleDetailComponent implements OnInit {
         }
       }
     }
-    console.log(this.matchingCourses);
   }
   
   goBack(): void {
