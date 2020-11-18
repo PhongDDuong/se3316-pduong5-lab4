@@ -8,8 +8,8 @@ import { ScheduleDetailComponent } from './schedule-detail/schedule-detail.compo
 
 const routes: Routes = [
   { path: 'courses', component: CoursesComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'schedules', component: DashboardComponent },
+  { path: '', redirectTo: '/schedules', pathMatch: 'full' },
   { path: 'detail/:catalog_nbr', component: CourseDetailComponent },
   { path: 'schedule/:name', component: ScheduleDetailComponent },
 ];

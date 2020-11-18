@@ -14,12 +14,14 @@ const port = process.env.Port || 3000;//port number
 router.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
 
@@ -54,6 +56,19 @@ app.get('/api/schedule/:id', (req, res) => {
   result.push(store.get(req.params.id))
   res.send(result);
 });
+
+//add course to schedule
+app.post('/api/schedule/create/:id', function (req, res) {
+  
+  const schedule = {
+    schedule: req.params.id,
+    subject: " ",
+    catalog_nbr: " ",
+  }
+  //courses.push(course);
+  store.put(schedule.schedule,schedule);
+  res.send(schedule);
+})
 
 //add course to schedule
 app.post('/api/schedule/create', function (req, res) {
@@ -103,6 +118,12 @@ app.delete('/api/schedule/all', function (req, res) {
   for(schedule in store.store) {
     store.remove(schedule);
   }
+  res.send("deleted");
+});
+
+//delete a schedule when given its name in url
+app.delete('/api/schedule/:id', function (req, res) {
+  store.remove(req.params.id);
   res.send("deleted");
 });
 

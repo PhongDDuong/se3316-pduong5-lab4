@@ -1,3 +1,6 @@
+<br>
+<input #searchBox id="search-box" placeholder="Schedule name"/>
+<button (click)="addSchedule(searchBox.value)">create schedule</button>
 <h3>Schedules</h3>
 <div class="grid grid-pad">
   <a *ngFor="let schedule of schedules" class="col-1-4" routerLink="/schedule/{{schedule}}">

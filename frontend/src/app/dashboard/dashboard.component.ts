@@ -17,8 +17,17 @@ export class DashboardComponent implements OnInit {
     this.getSchedules();
   }
 
+  addSchedule(name: string): void {
+    this.courseService.addSchedule(name)
+      .subscribe(this.refresh);
+  }
+
   getSchedules(): void {
     this.courseService.getSchedules()
       .subscribe(schedules => this.schedules = schedules);
   }
+
+  refresh(): void {
+    window.location.reload();
+}
 }

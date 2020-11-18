@@ -55,6 +55,22 @@ export class CourseService {
       catchError(this.handleError<Schedule>(`getSchedule id=${name}`))
     );
   }
+
+  addSchedule(name: String): Observable<Schedule> {
+    const url = `${this.scheduleUrl}/create/${name}`;
+    return this.http.post<Schedule>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted schedule id=${name}`)),
+      catchError(this.handleError<Schedule>('deleteSchedule'))
+    );
+  }
+
+  deleteSchedule(name: String): Observable<Schedule> {
+    const url = `${this.scheduleUrl}/${name}`;
+    return this.http.delete<Schedule>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted schedule id=${name}`)),
+      catchError(this.handleError<Schedule>('deleteSchedule'))
+    );
+  }
   
   getCourses(): Observable<Course[]> {
     this.messageService.add('CourseService: fetched courses');
