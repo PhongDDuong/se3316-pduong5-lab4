@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 import {
    debounceTime, distinctUntilChanged, switchMap
@@ -16,9 +17,12 @@ import { CourseService } from '../course.service';
 })
 export class CourseSearchComponent implements OnInit {
   courses$: Observable<Course[]>;
+  postData ={};
+  private scheduleUrl = 'http://localhost:3000/api/schedule';
+
   private searchTerms = new Subject<string>();
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService, private http: HttpClient, private route: ActivatedRoute) {}
 
   // Push a search term into the observable stream.
   search(term: string): void {
@@ -26,7 +30,16 @@ export class CourseSearchComponent implements OnInit {
   }
 
   addCourse(subject: string,catalog_nbr: string): void {
-    console.log(subject,catalog_nbr);
+    const name = this.route.snapshot.paramMap.get('name');
+    this.postData = {
+      schedule: name,
+      subject: subject,
+      catalog_nbr: catalog_nbr,
+    }
+    this.http.post(this.scheduleUrl,this.postData).toPromise().then(data => {
+      console.log(data);
+      this.refresh();
+    });
   }
 
   ngOnInit(): void {
@@ -40,5 +53,9 @@ export class CourseSearchComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.courseService.searchCourses(term)),
     );
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 }

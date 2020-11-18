@@ -1,11 +1,11 @@
 <div id="search-component">
     <h4><label for="search-box">Course Search</label></h4>
   
-    <input #searchBox id="search-box" (input)="search(searchBox.value+','+searchBox2.value+','+searchBox3.value)" placeholder="subject"/> | <input #searchBox2 id="search-box2" (input)="search(searchBox.value+','+searchBox2.value+','+searchBox3.value)" placeholder="course code"/> | <input #searchBox3 id="search-box3" (input)="search(searchBox.value+','+searchBox2.value+','+searchBox3.value)" placeholder="component (optional)"/>
+    <input #searchBox id="search-box" (input)="search(searchBox.value+','+searchBox2.value+','+searchBox3.value)" placeholder="subject"/> | <input #searchBox2 id="search-box2" (input)="search(searchBox.value+','+searchBox2.value+','+searchBox3.value)" placeholder="course code"/> | <input #searchBox3 id="search-box3" (input)="search(searchBox.value+','+searchBox2.value+','+searchBox3.value)" placeholder="component"/>
     
     <ul class="courses">
       <li *ngFor="let course of courses$ | async" >
-        <button class="right" (click)="addCourse(course.subject,course.catalog_nbr)">Add Course</button>
+        <button class="right" (click)="addCourse(course.subject,course.catalog_nbr.toString())">Add Course</button>
         <a routerLink="/detail/{{course.catalog_nbr}}">
           {{course.subject}}: {{course.catalog_nbr}} {{course.course_info[0].ssr_component}}
         </a>
