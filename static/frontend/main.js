@@ -505,7 +505,7 @@ class CourseSearchComponent {
         this.http = http;
         this.route = route;
         this.postData = {};
-        this.scheduleUrl = 'http://localhost:3000/api/schedule';
+        this.scheduleUrl = 'api/schedule';
         this.searchTerms = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
     }
     // Push a search term into the observable stream.
@@ -654,8 +654,8 @@ class CourseService {
     constructor(http, messageService) {
         this.http = http;
         this.messageService = messageService;
-        this.coursesUrl = 'http://localhost:3000/api/courses';
-        this.scheduleUrl = 'http://localhost:3000/api/schedule';
+        this.coursesUrl = 'api/courses';
+        this.scheduleUrl = 'api/schedule';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         };

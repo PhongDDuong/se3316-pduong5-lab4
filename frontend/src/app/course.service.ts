@@ -12,8 +12,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class CourseService {
 
-  private coursesUrl = 'http://localhost:3000/api/courses';
-  private scheduleUrl = 'http://localhost:3000/api/schedule';
+  private coursesUrl = 'api/courses';
+  private scheduleUrl = 'api/schedule';
 
 
   httpOptions = {
