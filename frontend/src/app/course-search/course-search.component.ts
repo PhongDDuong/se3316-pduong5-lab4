@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+//import { ScheduleDetailComponent } from '../schedule-detail/schedule-detail.component';
+
 
 import {
    debounceTime, distinctUntilChanged, switchMap
@@ -38,8 +40,8 @@ export class CourseSearchComponent implements OnInit {
     }
     this.http.post(this.scheduleUrl,this.postData).toPromise().then(data => {
       console.log(data);
-      this.refresh();
     });
+    this.refresh();
   }
 
   ngOnInit(): void {
