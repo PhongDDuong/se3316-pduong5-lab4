@@ -69,8 +69,8 @@ app.post('/api/schedule/create', function (req, res) {
   }
   var existing = false;
 
-  for(schedule in store.store) {
-    if(req.body.schedule == schedule){
+  for(item in store.store) {
+    if(req.body.schedule == item){
       existing = true;
     }
   }
